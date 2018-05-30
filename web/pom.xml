@@ -206,6 +206,31 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+
+        <dependency>
+            <groupId>com.aixuexi</groupId>
+            <artifactId>transformers</artifactId>
+            <version>${transformers.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>thor-util</artifactId>
+                    <groupId>com.aixuexi</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aixuexi</groupId>
+            <artifactId>transformers-proto</artifactId>
+            <version>${transformers.proto.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aixuexi</groupId>
+            <artifactId>thor-util</artifactId>
+            <version>${thor.version}</version>
+        </dependency>
+
         <!-- Caching dependecies -->
         <dependency>
             <groupId>net.sf.ehcache</groupId>
