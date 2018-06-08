@@ -181,5 +181,5 @@
         <constructor-arg type="int" value="32"/>
         <constructor-arg type="int" value="8"/>
     </bean>
-    <bean class="com.navercorp.pinpoint.web.vo.ApplicationRealtimeStat" id=""/>
+    <!--<bean class="com.navercorp.pinpoint.web.vo.ApplicationRealtimeStat" id=""/>-->
 </beans>

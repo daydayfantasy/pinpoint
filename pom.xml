@@ -87,7 +87,7 @@
         <docker.maven.plugin.version>0.4.3</docker.maven.plugin.version>
         <cassandra.driver.version>2.1.7.1</cassandra.driver.version>
         <sniffer.artifactid>java16</sniffer.artifactid>
-        <thor.version>1.5.11-RELEASE</thor.version>
+        <thor.version>1.5.32-RELEASE</thor.version>
         <transformers.proto.version>1.0.67-RELEASE</transformers.proto.version>
         <transformers.version>1.0.13.17-RELEASE</transformers.version>
     </properties>

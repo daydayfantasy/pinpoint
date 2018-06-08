@@ -229,6 +229,12 @@
             <groupId>com.aixuexi</groupId>
             <artifactId>thor-util</artifactId>
             <version>${thor.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>elasticsearch</artifactId>
+                    <groupId>org.elasticsearch</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Caching dependecies -->
