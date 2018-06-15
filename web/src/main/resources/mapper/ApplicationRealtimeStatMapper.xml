@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.navercorp.pinpoint.web.dao.ApplicationRealtimeStatDao">
+
+    <insert id="insertList">
+            INSERT INTO application_realtime_stat (application_id,agent_count,agent_live_count,req_total,req_error,rsp_time_avg,slow_count,req_error_rate,slow_rate,healthy_rate,stat_time,is_show)
+            VALUES
+        <foreach collection="list" item="ApplicationRealtimeStat" separator=",">
+             (#{ApplicationRealtimeStat.applicationId}, #{ApplicationRealtimeStat.agentCount}, #{ApplicationRealtimeStat.agentLiveCount},
+            #{ApplicationRealtimeStat.reqTotal}, #{ApplicationRealtimeStat.reqError}, #{ApplicationRealtimeStat.rspTimeAvg},
+            #{ApplicationRealtimeStat.slowCount}, #{ApplicationRealtimeStat.reqErrorRate}, #{ApplicationRealtimeStat.slowRate},
+            #{ApplicationRealtimeStat.healthyRate}, #{ApplicationRealtimeStat.statTime}, #{ApplicationRealtimeStat.isShow})
+        </foreach>
+    </insert>
+    
+    <update id="updateIsShow">
+        UPDATE application_realtime_stat
+        SET is_show = 0
+        WHERE is_show=1
+    </update>
+</mapper>

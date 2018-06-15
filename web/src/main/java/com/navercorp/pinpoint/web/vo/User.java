@@ -82,7 +82,8 @@ public class User {
         for (String phoneNumber : phoneNumberList) {
             if (phoneNumber != null && phoneNumber.contains("-")) {
                 editedPhoneNumberList.add(phoneNumber.replace("-", ""));
-            }
+            }else
+                editedPhoneNumberList.add(phoneNumber);
         }
 
         return editedPhoneNumberList;

@@ -1,0 +1,13 @@
+AGENT_PATH=/usr/local/pinpoint-agent
+##get application_name from running base dir
+_BASE_BIN_DIR="$( cd "$( dirname "$0" )" && pwd )"
+_BASE_DIR=${_BASE_BIN_DIR/\/bin/}
+APPLICATION_NAME=`basename $_BASE_DIR`
+APPLICATION_NAME=`expr substr "$APPLICATION_NAME" 1 14`
+HOST_NAME=`hostname`
+APPLICATION_ID=`expr substr "${APPLICATION_NAME}_$HOST_NAME" 1 24`
+echo $APPLICATION_ID
+JAVA_AGENT=" -javaagent:$AGENT_PATH/pinpoint-bootstrap.jar -Dpinpoint.agentId=$APPLICATION_ID -Dpinpoint.applicationName=$APPLICATION_NAME"
+if [ -d $AGENT_PATH ]; then
+  JAVA_OPTS="$JAVA_OPTS $JAVA_AGENT"
+fig

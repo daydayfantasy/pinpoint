@@ -22,18 +22,27 @@
 						data = {
 							"userId" : ( config["userId"] || "" )
 						};
+                        $timeout(function() {
+                            $ajaxService[funcName](data, function (resultData) {
+                                if (resultData.errorCode || resultData.status) {
+                                    failCallback(resultData);
+                                } else {
+                                    successCallback(resultData);
+                                }
+                            });
+                        });
 					});
+				}else{
+                    $timeout(function() {
+                        $ajaxService[funcName](data, function (resultData) {
+                            if (resultData.errorCode || resultData.status) {
+                                failCallback(resultData);
+                            } else {
+                                successCallback(resultData);
+                            }
+                        });
+                    });
 				}
-
-				$timeout(function() {
-					$ajaxService[funcName](data, function (resultData) {
-						if (resultData.errorCode || resultData.status) {
-							failCallback(resultData);
-						} else {
-							successCallback(resultData);
-						}
-					});
-				});
 			};
 			this.setTotal = function( $elTotal, n ) {
 				$elTotal.html( "(" + n + ")");

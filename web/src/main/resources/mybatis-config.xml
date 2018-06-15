@@ -32,6 +32,8 @@
 
         <typeAlias type="com.navercorp.pinpoint.web.vo.AgentCountStatistics" alias="AgentCountStatistics"/>
         <typeAlias type="com.navercorp.pinpoint.web.vo.Range" alias="Range"/>
+        <typeAlias type="com.navercorp.pinpoint.web.vo.ApmRecord" alias="ApmRecord"/>
+        <typeAlias type="com.navercorp.pinpoint.web.vo.ApplicationRealtimeStat" alias="ApplicationRealtimeStat"/>
     </typeAliases>
 
 </configuration>
