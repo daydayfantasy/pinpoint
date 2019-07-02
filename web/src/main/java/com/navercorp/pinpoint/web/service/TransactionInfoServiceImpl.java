@@ -23,8 +23,10 @@ import java.util.Objects;
 import com.navercorp.pinpoint.common.server.bo.AnnotationBo;
 import com.navercorp.pinpoint.common.server.bo.Event;
 import com.navercorp.pinpoint.common.server.bo.SpanBo;
+import com.navercorp.pinpoint.common.server.bo.SpanEventBo;
 import com.navercorp.pinpoint.common.service.AnnotationKeyRegistryService;
 import com.navercorp.pinpoint.common.service.ServiceTypeRegistryService;
+import com.navercorp.pinpoint.common.trace.AnnotationKey;
 import com.navercorp.pinpoint.common.trace.AnnotationKeyMatcher;
 import com.navercorp.pinpoint.common.trace.LoggingInfo;
 import com.navercorp.pinpoint.common.util.TransactionId;
@@ -37,6 +39,7 @@ import com.navercorp.pinpoint.web.security.MetaDataFilter;
 import com.navercorp.pinpoint.web.security.MetaDataFilter.MetaData;
 import com.navercorp.pinpoint.web.vo.BusinessTransactions;
 import com.navercorp.pinpoint.web.vo.Range;
+import com.navercorp.pinpoint.web.vo.callstacks.AnnotationRecord;
 import com.navercorp.pinpoint.web.vo.callstacks.Record;
 import com.navercorp.pinpoint.web.vo.callstacks.RecordFactory;
 import com.navercorp.pinpoint.web.vo.callstacks.RecordSet;
@@ -382,6 +385,21 @@ public class TransactionInfoServiceImpl implements TransactionInfoService {
                     final Record remoteAddressRecord = factory.getParameter(record.getTab() + 1, record.getId(), "REMOTE_ADDRESS", align.getRemoteAddr());
                     recordList.add(remoteAddressRecord);
                 }
+
+                // 添加调用参数显示  by Jacob   1110 是DubboProvider
+                if( align.getServiceType() == 1110) {
+                    if (align.getSpanBo().getSpanEventBoList() != null && align.getSpanBo().getSpanEventBoList().size() > 0) {
+                        SpanEventBo seb = align.getSpanBo().getSpanEventBoList().get(0);
+                        for (AnnotationBo annotation : seb.getAnnotationBoList()) {
+                            if (annotation.getKey() == 90) {
+                                final Record argsRecord = factory.getParameter(record.getTab() + 1, record.getId(), "args", (String) annotation.getValue());
+                                recordList.add(argsRecord);
+                            }
+                        }
+
+                    }
+                }
+
             }
 
             return recordList;

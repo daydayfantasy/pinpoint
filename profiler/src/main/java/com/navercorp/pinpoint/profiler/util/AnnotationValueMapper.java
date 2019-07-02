@@ -20,6 +20,7 @@ package com.navercorp.pinpoint.profiler.util;
 import com.navercorp.pinpoint.common.util.IntBooleanIntBooleanValue;
 import com.navercorp.pinpoint.common.util.LongIntIntByteByteStringValue;
 import com.navercorp.pinpoint.common.util.StringUtils;
+import com.alibaba.fastjson.JSON;
 
 import com.navercorp.pinpoint.thrift.dto.TAnnotation;
 import com.navercorp.pinpoint.thrift.dto.TAnnotationValue;
@@ -27,10 +28,25 @@ import com.navercorp.pinpoint.thrift.dto.TIntBooleanIntBooleanValue;
 import com.navercorp.pinpoint.thrift.dto.TLongIntIntByteByteStringValue;
 import org.apache.thrift.TBase;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 /**
  * @author emeroad
  */
 public final class AnnotationValueMapper {
+
+
+    private static  Properties pp = new Properties();
+    static{
+       InputStream in =  AnnotationValueMapper.class.getClassLoader().getResourceAsStream("rpc.properties");
+        try {
+            pp.load(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private AnnotationValueMapper() {
     }
@@ -93,6 +109,14 @@ public final class AnnotationValueMapper {
             throw new IllegalArgumentException("TBase not supported. Class:" + value.getClass());
         }
         String str = StringUtils.abbreviate(value.toString());
+        //处理dubbo参数的情况 by jackob
+        if(annotation.getKey()==90){
+            int countOfSave = Integer.parseInt(String.valueOf(pp.getProperty("countOfSave")));
+             str = JSON.toJSONString(value);
+            if(str.length()>countOfSave){
+                str=str.substring(0,countOfSave)+"......";
+            }
+        }
         annotation.setValue(TAnnotationValue.stringValue(str));
     }
 
